@@ -1,9 +1,57 @@
+require_relative 'navbar.erb'
+
 <html>
 <head>
 	<title>new call</title>
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+  	<link rel="stylesheet" type="text/css" href="/style.css">
+  	<script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+  	<script type="text/javascript">
 
+  	var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+		getUserMedia({video: true, audio: true}, function(stream) {
+
+	var peer = new Peer({
+		host: 'drake.itp.tsoa.nyu.edu',
+		port: 9000
+		});
+
+	var call = peer.call('another-peers-id', stream);
+
+		call.on('stream', function(remoteStream) {
+		    // Show stream in some video/canvas element.
+		  	});
+		}, function(err) {
+		  console.log('Failed to get local stream' ,err);
+		});
+
+	var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	
+	peer.on('call', function(call) {
+	
+	getUserMedia({video: true, audio: true}, function(stream) {
+		call.answer(stream); // Answer the call with an A/V stream.
+		call.on('stream', function(remoteStream) {
+		      // Show stream in some video/canvas element.
+		    });
+		  }, function(err) {
+		    console.log('Failed to get local stream' ,err);
+		  });
+		});
+
+
+  	</script>
 </head>
 <body>
-does this work?
+	<%= erb :navbar %>
+
+	<%= erb :newcall %>
+	does this work?
+
+	<div class="container">
+    <div class="hero-unit">
+      <img src="/bootstrap/img/spyke.png">
+      <h2>this should be the new call page</h2>
+    </div>
 </body>
 </html>
