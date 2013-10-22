@@ -18,7 +18,7 @@ require 'securerandom'
 
 get('/') { erb :index }
 # get('/apps') { @apps = Dumbstore::Text.apps.merge(Dumbstore::Voice.apps).values.uniq; erb :apps }
-get('/newcall') { erb :newcall }
+get('/newcall') {@random_url = SecureRandom.urlsafe_base64(20); erb :newcall }
 get('/about') { erb :about }
 
 # @random_url = SecureRandom.urlsafe_base64(20);

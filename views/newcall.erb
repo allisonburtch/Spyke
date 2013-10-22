@@ -1,57 +1,86 @@
-require_relative 'navbar.erb'
-
 <html>
 <head>
 	<title>new call</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
   	<link rel="stylesheet" type="text/css" href="/style.css">
-  	<script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+  	<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
   	<script type="text/javascript">
+ 
+			var myvideo = null;
+			var mystream = null;
+			var mypeerid = null;
+			var peer = null;
+			
+			var init = function() {
+				myvideo = document.getElementById('myvideo');
+			
+				window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+				
+				if (navigator.getUserMedia) {
+					// http://src.chromium.org/svn/trunk/src/chrome/test/data/webrtc/manual/constraints.html
+					navigator.getUserMedia({video: true, audio: true}, function(stream) {
+						mystream = stream;
+						myvideo.src = window.URL.createObjectURL(stream) || stream;
+						myvideo.play();
+						}, function(err) {
+							console.log('Failed to get local stream' ,err);
+							alert("Failed to get local stream " + err);
+						}
+					);
+				}	
+				
+				peer = new Peer({key: 'uohu08l7r6swcdi'});
+				
+				peer.on('open', function(id) {
+				  console.log('My peer ID is: ' + id);
+				  mypeerid = id;
+				});
 
-  	var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-		getUserMedia({video: true, audio: true}, function(stream) {
+				
+				
+				peer.on('call', function(call) {
+					call.answer(mystream);
 
-	var peer = new Peer({
-		host: 'drake.itp.tsoa.nyu.edu',
-		port: 9000
-		});
-
-	var call = peer.call('another-peers-id', stream);
-
-		call.on('stream', function(remoteStream) {
-		    // Show stream in some video/canvas element.
-		  	});
-		}, function(err) {
-		  console.log('Failed to get local stream' ,err);
-		});
-
-	var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-	
-	peer.on('call', function(call) {
-	
-	getUserMedia({video: true, audio: true}, function(stream) {
-		call.answer(stream); // Answer the call with an A/V stream.
-		call.on('stream', function(remoteStream) {
-		      // Show stream in some video/canvas element.
-		    });
-		  }, function(err) {
-		    console.log('Failed to get local stream' ,err);
-		  });
-		});
-
+					call.on('stream', function(remoteStream) {
+				      
+				      		var othervideo = document.createElement("video");
+							othervideo.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+							document.body.appendChild(othervideo);
+							othervideo.play();
+				    });					
+				});
+				
+						 	 
+			};	
+			
+			var placecall = function() {				
+					var call = peer.call(document.getElementById('other_peer_id').value, mystream);
+						call.on('stream', function(remoteStream) {
+						// Show stream in some video/canvas element.
+						
+							var othervideo = document.createElement("video");
+							othervideo.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+							document.body.appendChild(othervideo);
+							othervideo.play();
+					});
+				};	
 
   	</script>
 </head>
-<body>
-	<%= erb :navbar %>
+<body onload="init()">
 
-	<%= erb :newcall %>
-	does this work?
-
-	<div class="container">
-    <div class="hero-unit">
+<div class = "container">
       <img src="/bootstrap/img/spyke.png">
-      <h2>this should be the new call page</h2>
-    </div>
+      <h3>this should be the new call page</h3>
+      <div class= "video">
+       <video id="myvideo" muted="true" width="320" height="240"></video>
+       <input type="text" id="other_peer_id">
+ 		<video id="their-video" autoplay="true"></video>
+ 		<button value="Call" onclick="placecall()">
+</button>
+ 	</div>
+ </div>
+    
 </body>
 </html>
