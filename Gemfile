@@ -7,4 +7,6 @@ gem 'rubysl-securerandom'
 gem 'faye-websocket'
 gem 'puma'
 gem 'redis'
+gem "eventmachine"
+gem 'em/pure_ruby'
 
