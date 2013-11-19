@@ -1,0 +1,38 @@
+{
+  "name": "peer",
+  "version": "0.2.1",
+  "description": "PeerJS server component",
+  "main": "lib/server.js",
+  "bin": {
+    "peerjs": "./bin/peerjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peers/peerjs-server.git"
+  },
+  "author": {
+    "name": "Michelle Bu, Eric Zhang"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "restify": "~2.3.5",
+    "ws": "~0.4.25",
+    "optimist": "*"
+  },
+  "devDependencies": {
+    "expect.js": "*",
+    "sinon": "*",
+    "mocha": "*"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha test",
+    "start": "node server.js"
+  },
+  "readme": "[![Build Status](https://travis-ci.org/peers/peerjs-server.png?branch=master)](https://travis-ci.org/peers/peerjs-server)\n\n# PeerServer: A server for PeerJS #\n\nPeerServer helps broker connections between PeerJS clients. Data is not proxied through the server.\n\n##[http://peerjs.com](http://peerjs.com)\n\n\n**If you prefer to use a cloud hosted PeerServer instead of running your own, [sign up for a free API key here](http://peerjs.com/peerserver)**\n\n\n### Run PeerServer\n\nInstall the library:\n\n```bash\n$> npm install peer\n```\n\nRun the server:\n\n```bash\n$> peerjs --port 9000 --key peerjs\n```\n\nOr, create a custom server:\n\n```javascript\nvar PeerServer = require('peer').PeerServer;\nvar server = new PeerServer({ port: 9000 });\n```\n\nConnecting to the server from PeerJS:\n\n```html\n<script>\n    // No API key required when not using cloud server\n    var peer = new Peer('someid', {host: 'localhost', port: 9000});\n</script>\n```\n\nUsing HTTPS: Simply pass in PEM-encoded certificate and key.\n\n```javascript\nvar fs = require('fs');\nvar PeerServer = require('peer').PeerServer;\n\nvar server = new PeerServer({\n  port: 9000,\n  ssl: {\n    key: fs.readFileSync('/path/to/your/ssl/key/here.key'),\n    certificate: fs.readFileSync('/path/to/your/ssl/certificate/here.crt')\n  }\n});\n```\n\n## Problems?\n\nDiscuss PeerJS on our Google Group:\nhttps://groups.google.com/forum/?fromgroups#!forum/peerjs\n\nPlease post any bugs as a Github issue.\n",
+  "readmeFilename": "README.md",
+  "_id": "peer@0.2.1",
+  "_from": "peer@"
+}

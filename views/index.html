@@ -1,0 +1,141 @@
+<html>
+<head>
+	<title>spyyke</title>
+	<link rel="stylesheet" type="text/css" href="/views/bootstrap/css/bootstrap.css">
+  	<link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+    <script src="node_modules/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+      
+      var init = function() {
+
+        /* Get User Media */
+        var my_stream = null;
+        
+        window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia({video: true}, function(stream) {
+                my_stream = stream;
+                var audioElement = document.getElementById('myaudio');
+                audioElement.src = window.URL.createObjectURL(stream) || stream;
+                audioElement.play();
+                console.log("my_stream is created");
+
+        /* My WebRTC peer id */
+        var peer_id = null; 
+         var myName = null;
+          var user_info_div;    
+      
+        /* Socket Server - Socket.io */
+        var socket = io.connect('localhost:7070/', {'sync disconnect on unload': true });
+
+
+
+      
+        socket.on('connect', function() {
+          console.log("Connected");
+        
+        });
+
+
+
+
+        // Receive other folks peer ids, broadcast
+
+        socket.on('peer_id', function (data) {
+          console.log("Got a new peer: " + data);
+        
+          // Call them with our stream
+          console.log("Calling peer: " + data);           
+          var call = peer.call(data, my_stream);
+
+          call.on('stream', function(remoteStream) {
+            console.log("Got remote stream");
+            //if its my turn then broadcast to pumpkin/everyone else
+            var oaudioElement = document.createElement('audio');
+            oaudioElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+            document.body.appendChild(oaudioElement);
+            oaudioElement.controls=true;
+            oaudioElement.play();
+            console.log("If my turn, broadcast");
+          });
+        });
+        //end of data function
+
+      
+        //var peer = new Peer({key: 'sr1apomrk7kqpvi'});
+        var peer = new Peer({
+          host: 'localhost',
+          port: 5000
+        });
+
+        // Get an ID from the PeerJS server   
+        peer.on('open', function(id) {
+          console.log('My peer ID is: ' + id);
+          peer_id = id;
+        
+          // If our socket is connected, send out our peer id here
+          //if (socket.connected) {
+          console.log("sending out our peer id");
+          socket.emit("peer_id", peer_id );
+          //}
+        });   
+    
+        
+        peer.on('call', function(incoming_call) {
+          console.log("Got a call!");
+          incoming_call.answer(my_stream); // Answer the call with an A/V stream.
+          incoming_call.on('stream', function(remoteStream) {
+            //this is the part that generates another audio tag
+            var oaudioElement = document.createElement('audio');
+            oaudioElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+            document.body.appendChild(oaudioElement);
+            oaudioElement.controls=true;
+            oaudioElement.play();
+            console.log("my_stream received call from another stream");
+          });
+        }); 
+
+
+          }, function(err) {
+                console.log('Failed to get local stream' ,err);
+          });
+        }
+
+    
+
+      };
+    
+    </script>
+  </head>
+  <body onload="init()">
+    <audio id="myaudio" controls muted></audio>
+    <div id="user_info"></div>
+  <div id="workers"></div>
+  </body>
+</html>
+
+
+</script>
+  </script>
+</head>
+<body>
+  <%= erb :navbar %>
+  <div class="container">
+    <div class="hero-unit">
+      <img src="/public/bootstrap/img/spyke.png">
+      <h2>It's like the other thing. Except I'm not listening in.</h2>
+ 
+
+    </div>
+
+<div class="row-fluid">
+      <div class="hero-unit span6">
+  <!-- <h3>Check out this <a href="https://localhost:5000/newcall/<%=@random_url%>">link</a></h3> -->
+  <h3>Check out this <a href="https://localhost:5000/newcall/<%=@random_url%>">link</a></h3>
+</div>
+</body>
+</html>
+
