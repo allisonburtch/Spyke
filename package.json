@@ -8,10 +8,12 @@
   "dependencies": {
     "ws": "0.4.x",
     "express": "3.x",
-    "peer": "0.3.2"
+    "peer": "0.3.4",
+    "urlsafe-base64": "0.0.2",
+    "crypto": "0.0.3"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "0.8.18",
+    "npm": "1.2.2"
   }
 }

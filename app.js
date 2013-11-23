@@ -1,8 +1,11 @@
 // HTTP Portion
 var express = require('express');
-
 var http = require('http');
 var fs = require('fs'); // Using the filesystem module
+
+var PeerServer = require('peer').PeerServer;
+var server = new PeerServer({ port: 9000 });
+
 var httpServer = http.createServer(requestHandler);
 httpServer.listen(process.env.PORT || 7070);
 
@@ -19,6 +22,7 @@ function requestHandler(req, res) {
 			// Otherwise, send the data, the contents of the file
 			res.writeHead(200);
 			res.end(data);
+			console.log("got index.html");
   		}
   	);
 }
@@ -60,10 +64,17 @@ io.sockets.on('connection',
 	}
 );
 
-
-
-app.get('/about', function(request, response){
-  response.sendfile(__dirname + "views/about.html");
+app.get('/views/v/*', function(request, response){
+	response.sendfile(__dirname + "/about.html")
+	console.log(window.location);
+	console.log("helpppp");
 });
+
+
+
+// app.get('/about', function(request, response){
+//   response.sendfile(__dirname + "views/about.html");
+// });
+
 
 
