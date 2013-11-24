@@ -4,8 +4,11 @@
   <link rel="stylesheet" type="text/css" href="/views/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
-    <script src="node_modules/socket.io/socket.io.js"></script>
-
+    <script src="/node_modules/socket.io/socket.io.js"></script>
+      <script>
+    // No API key required when not using cloud server
+    var peer = new Peer('v', {host: 'localhost', port: 9000});
+  </script>
     <script type="text/javascript">
       
       var init = function() {
@@ -31,14 +34,10 @@
         /* Socket Server - Socket.io */
         var socket = io.connect('localhost:7070/', {'sync disconnect on unload': true });
 
-
-
         socket.on('connect', function() {
           console.log("Connected");
         
         });
-
-
 
 
         // Receive other folks peer ids, broadcast
@@ -111,6 +110,7 @@
   </head>
   <body onload="init()">
     <audio id="myaudio" controls muted></audio>
+    everything sucks
     <div id="user_info"></div>
   <div id="workers"></div>
   </body>
