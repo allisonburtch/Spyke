@@ -9,6 +9,22 @@ var server = new PeerServer({ port: 9000 });
 var httpServer = http.createServer(requestHandler);
 httpServer.listen(process.env.PORT || 7070);
 
+var app = express();
+var io = require('socket.io').listen(httpServer);
+
+console.log("got index.html");
+
+app.set("views", __dirname + "/views/");
+
+app.get('v/*', function(request, response){
+	res.send(__dirname + "/about.html")
+	// response.sendfile
+	console.log(window.location);
+	console.log("helpppp");
+});
+
+ 
+
 function requestHandler(req, res) {
 	// Read index.html
 	fs.readFile(__dirname + '/views/index.html', 
@@ -27,11 +43,29 @@ function requestHandler(req, res) {
   	);
 }
 
-var app = express();
+
+
+function requestHandler(req, res) {
+	// Read index.html
+	fs.readFile(__dirname + '/views/v/*', 
+		// Callback function for reading
+		function (err, data) {
+			// if there is an error
+			if (err) {
+				res.writeHead(500);
+				return res.end('Error loading anything');
+			}
+			// Otherwise, send the data, the contents of the file
+			res.writeHead(200);
+			res.end(data);
+			console.log("is this working");
+  		}
+  	);
+}
 
 // WebSocket Portion
 // WebSockets work with the HTTP server
-var io = require('socket.io').listen(httpServer);
+
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
@@ -57,18 +91,12 @@ io.sockets.on('connection',
 			socket.broadcast.emit('peer_id',data);
 		});
 		
-		
 		socket.on('disconnect', function() {
 			console.log("Client has disconnected");
 		});
 	}
 );
 
-app.get('/views/v/*', function(request, response){
-	response.sendfile(__dirname + "/about.html")
-	console.log(window.location);
-	console.log("helpppp");
-});
 
 
 
