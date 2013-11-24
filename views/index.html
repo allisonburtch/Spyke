@@ -6,21 +6,17 @@
   <meta charset="utf-8">
   <script type="text/javascript"></script>
   <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
-  <script>
-    // No API key required when not using cloud server
-    var peer = new Peer('someid', {host: 'localhost', port: 9000});
-  </script>
  
 </head>
 <body>
 <h3>hey there everyone what's up</h3>
-<button type="button" onclick="go2Random()">New Pad</button>
+<button a ref="/views/" onclick="go2Random()">New Pad</button>
 </body>
    <script>
 
 
 
-  function randomPadName() 
+  function randomVidName() 
         {
             var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
             var string_length = 20;
@@ -37,10 +33,11 @@
   function go2Random() 
             {
               // console.log(randomPadName());
-                window.location = "v/" + randomPadName();
+                window.location = "v/" + randomVidName();
             }
 
   console.log(window.location);
+
 
 
 </script>
