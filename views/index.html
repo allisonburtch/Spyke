@@ -6,17 +6,10 @@
   <meta charset="utf-8">
   <script type="text/javascript"></script>
   <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
- 
-</head>
-<body>
-<h3>hey there everyone what's up</h3>
-<button a ref="/views/" onclick="go2Random()">New Pad</button>
-</body>
-   <script>
+ <script>
 
-
-
-  function randomVidName() 
+var init = function () {
+    function randomVidName() 
         {
             var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
             var string_length = 20;
@@ -29,18 +22,60 @@
                 return randomstring;
             }
 
-
   function go2Random() 
             {
               // console.log(randomPadName());
                 window.location = "v/" + randomVidName();
             }
 
-  console.log(window.location);
+    // No API key required when not using cloud server
+  var peerID = randomVidName();
+
+  var peer = new Peer(peerID, {host: 'localhost', port: 9000});
+
+  console.log('name of random vid' + peerID);
+
+  peer.on('open', function(peer) {
+    console.log('my peer id is' + peer);
+  })
 
 
+
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+// navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//       var call = peer.call('another-peers-id', stream);
+//       call.on('stream', function(remoteStream) {
+//         // Show stream in some <video> element.
+//       });
+//     }, function(err) {
+//       console.log('Failed to get local stream' ,err);
+//     });
+
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+// peer.on('call', function(call) {
+//       navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//         call.answer(stream); // Answer the call with an A/V stream.
+//         call.on('stream', function(remoteStream) {
+//           // Show stream in some <video> element.
+//         });
+//       }, function(err) {
+//         console.log('Failed to get local stream' ,err);
+//       });
+//     });
+};
+ 
 
 </script>
+</head>
+<body onload="init()">
+hello there
+    <video id="myvideo" width="320" height="240"></video>
+    
+ 
+<!-- <button a ref="/views/" onclick="go2Random()">New Pad</button>
+ -->
+ </body>
 
 </html>
 
