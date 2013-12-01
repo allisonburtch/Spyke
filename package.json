@@ -1,19 +1,29 @@
 {
   "name": "spyke",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "description": "video chat web app",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.4.4",
+    "jade": "~0.35.0",
+    "peer": "~0.2.1",
+    "crypto": "~0.0.3",
+    "socket.io": "~0.9.16",
+    "ws": "~0.4.31",
+    "peerjs": "~0.3.4",
+    "secure_random": "~0.1.0",
+    "urlsafe-base64": "~0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/allisonburtch/spyke.git"
+    "url": "https://github.com/allisonburtch/Spyke.git"
   },
-  "dependencies": {
-    "ws": "0.4.x",
-    "express": "3.x",
-    "peerjs": "0.3.4",
-    "urlsafe-base64": "0.0.2",
-    "crypto": "0.0.3"
-  },
-  "engines": {
-    "node": "0.8.18",
-    "npm": "1.2.2"
-  }
+  "author": "allison burtch",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "55534107b85eb70493e19bca259b168d975f8392"
 }

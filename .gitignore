@@ -2,9 +2,11 @@
 npm-debug.log
 node_modules/
 public/bootstrap/
+oldcode/
 server.csr
 server.key
 server.pass.key
+keys/
 
 # Compiled source #
 ###################
