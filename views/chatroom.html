@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script type="text/javascript"></script>
+<script>
+	
+ var peerID = randomVidName();
+
+  var peer = new Peer(peerID, {host: 'localhost', port: 9000});
+
+  console.log('name of random vid' + peerID);
+
+  peer.on('open', function(peer) {
+    console.log('my peer id is' + peer);
+  })
+</script>
+</head>
+<body>
+
+</body>
+</html>
