@@ -16,3 +16,27 @@ function randomPadName()
 var url = "v/" + randomPadName();
 console.log(randomPadName());
 }
+
+or
+
+  function randomVidName() 
+        {
+            var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
+            var string_length = 20;
+            var randomstring = '';
+                for (var i = 0; i < string_length; i++) 
+                {
+                    var rnum = Math.floor(Math.random() * chars.length);
+                    randomstring += chars.substring(rnum, rnum + 1);
+                }
+                return randomstring;
+            }
+
+
+  function go2Random() 
+            {
+              // console.log(randomPadName());
+                window.location = "v/" + randomVidName();
+            }
+
+  console.log(window.location);
