@@ -2,21 +2,28 @@
 <html>
 <head>
 	<title></title>
-<script type="text/javascript"></script>
+<script type="text/javascript" src="http://cdn.peerjs.com/0/peer.js"></script>
 <script>
-	
- var peerID = randomVidName();
 
-  var peer = new Peer(peerID, {host: 'localhost', port: 9000});
+ // var peerID = window.location.href.split('/')[2];
+ // console.log(peerID);
 
-  console.log('name of random vid' + peerID);
+pathArray = window.location.href.split('/');
+chatroomString = pathArray[4];
 
+console.log("this my chatroomString: " + chatroomString);
+
+  var peer = new Peer(chatroomString, {host: 'localhost', port: 9000, debug: true});
+  console.log('name of random vid' + chatroomString);
   peer.on('open', function(peer) {
-    console.log('my peer id is' + peer);
-  })
+    console.log('my peer id is ' + peer);
+  });
+
+
 </script>
 </head>
 <body>
-
+hey there this is chatroom.html
 </body>
 </html>
+
