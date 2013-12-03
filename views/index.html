@@ -3,72 +3,15 @@
 <head>
   <title>test test</title>
   <meta charset="utf-8">
-  <script type="text/javascript"></script>
-<script type="text/javascript"></script>
-<script>
-
-// var init = function startThis() {
-// function goToRandomVid() {
-//   window.location = "v/" + randomVidName();
-// }
-
-// function randomVidName() {
-//     var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
-//     var string_length = 20;
-//     var randomstring = '';
-//     for (var i = 0; i < string_length; i++) 
-//     {
-//         var rnum = Math.floor(Math.random() * chars.length);
-//         randomstring += chars.substring(rnum, rnum + 1);
-//     }
-//     return randomstring;
-//   }         
-//     console.log(randomVidName()); 
-//   }
-
-// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-// navigator.getUserMedia({video: true, audio: true}, function(stream) {
-//       var call = peer.call('another-peers-id', stream);
-//       call.on('stream', function(remoteStream) {
-//         // Show stream in some <video> element.
-//       });
-//     }, function(err) {
-//       console.log('Failed to get local stream' ,err);
-//     });
-
-// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-// peer.on('call', function(call) {
-//       navigator.getUserMedia({video: true, audio: true}, function(stream) {
-//         call.answer(stream); // Answer the call with an A/V stream.
-//         call.on('stream', function(remoteStream) {
-//           // Show stream in some <video> element.
-//         });
-//       }, function(err) {
-//         console.log('Failed to get local stream' ,err);
-//       });
-//     });
-// };
-// <form method="get" action = "/chatroom">  onsubmit="goToRandomVid()"
-// <button id="chatRoom" type="submit">New Pad</button>
-</script>
 </head>
 
-<body >
+<body>
     
  <h2> this is the index page</h2>
-    <form method="get"  action = "/chatroom" + "goToRandomVid()">               
-     <button id = "dosomethingpleasedeargod" type="submit">OK</button> </form>
-     
-
-     <form name="input" action="form_action.asp" method="get">
-    <input type="text" name="id" value=><br>
-    <input type="submit" value="Submit">
- </body>
-
-<script type="text/javascript"></script>
+              
+    <button id = "chatroom" onclick= "goToRandomVid();" type="submit">OK</button>
+    <script type="text/javascript"></script>
  <script>
-
 function randomVidName() {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
     var string_length = 20;
@@ -82,15 +25,12 @@ function randomVidName() {
   }         
     console.log(randomVidName()); 
 
-    dosomethingpleasedeargod.onclick = goToRandomVid();
-
 function goToRandomVid() {
   window.location = "/chatroom/" + randomVidName();
-  console.log("nope");
 }
 
-  
  </script>
+ </body>
 </html>
 
  
