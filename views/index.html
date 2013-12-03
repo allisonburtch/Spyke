@@ -2,44 +2,29 @@
 <html>
 <head>
   <title>test test</title>
-
   <meta charset="utf-8">
   <script type="text/javascript"></script>
-  <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
- <script>
+<script type="text/javascript"></script>
+<script>
 
-var init = function () {
-    function randomVidName() 
-        {
-            var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
-            var string_length = 20;
-            var randomstring = '';
-                for (var i = 0; i < string_length; i++) 
-                {
-                    var rnum = Math.floor(Math.random() * chars.length);
-                    randomstring += chars.substring(rnum, rnum + 1);
-                }
-                return randomstring;
-            }
+// var init = function startThis() {
+// function goToRandomVid() {
+//   window.location = "v/" + randomVidName();
+// }
 
-  function go2Random() 
-            {
-              // console.log(randomPadName());
-                window.location = "v/" + randomVidName();
-            }
-
-    // No API key required when not using cloud server
-  var peerID = randomVidName();
-
-  var peer = new Peer(peerID, {host: 'localhost', port: 9000});
-
-  console.log('name of random vid' + peerID);
-
-  peer.on('open', function(peer) {
-    console.log('my peer id is' + peer);
-  })
-
-
+// function randomVidName() {
+//     var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
+//     var string_length = 20;
+//     var randomstring = '';
+//     for (var i = 0; i < string_length; i++) 
+//     {
+//         var rnum = Math.floor(Math.random() * chars.length);
+//         randomstring += chars.substring(rnum, rnum + 1);
+//     }
+//     return randomstring;
+//   }         
+//     console.log(randomVidName()); 
+//   }
 
 // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // navigator.getUserMedia({video: true, audio: true}, function(stream) {
@@ -63,20 +48,48 @@ var init = function () {
 //         console.log('Failed to get local stream' ,err);
 //       });
 //     });
-};
- 
-
+// };
+// <form method="get" action = "/chatroom">  onsubmit="goToRandomVid()"
+// <button id="chatRoom" type="submit">New Pad</button>
 </script>
 </head>
-<body onload="init()">
-hello there
-    <video id="myvideo" width="320" height="240"></video>
+
+<body >
     
- 
-<!-- <button a ref="/views/" onclick="go2Random()">New Pad</button>
- -->
+ <h2> this is the index page</h2>
+    <form method="get"  action = "/chatroom" + "goToRandomVid()">               
+     <button id = "dosomethingpleasedeargod" type="submit">OK</button> </form>
+
+     <form name="input" action="form_action.asp" method="get">
+    <input type="text" name="id" value=><br>
+    <input type="submit" value="Submit">
  </body>
 
+<script type="text/javascript"></script>
+ <script>
+
+function randomVidName() {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
+    var string_length = 20;
+    var randomstring = '';
+    for (var i = 0; i < string_length; i++) 
+    {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
+    }
+    return randomstring;
+  }         
+    console.log(randomVidName()); 
+
+    dosomethingpleasedeargod.onclick = goToRandomVid();
+
+function goToRandomVid() {
+  window.location = "/chatroom/" + randomVidName();
+  console.log("nope");
+}
+
+  
+ </script>
 </html>
 
  

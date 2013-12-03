@@ -8,22 +8,60 @@
  // var peerID = window.location.href.split('/')[2];
  // console.log(peerID);
 
+var my_stream = null;
+
+  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true, audio: true}, function(stream) {
+          my_stream = stream;
+          var videoElement = document.getElementById('myvideo');
+          videoElement.src = window.URL.createObjectURL(stream) || stream;
+          videoElement.play();
+        }, function(err) {
+          console.log('Failed to get local stream' ,err);
+    });
+  }   
+
+  // We'll use a global variable to hold on to our id from PeerJS
+  var peer_id = null
+
+//logic to get peer id from url
 pathArray = window.location.href.split('/');
-chatroomString = pathArray[4];
+chatroomString = pathArray[5];
 
 console.log("this my chatroomString: " + chatroomString);
 
-  var peer = new Peer(chatroomString, {host: 'localhost', port: 9000, debug: true});
-  console.log('name of random vid' + chatroomString);
+//get new peer id
+  var peer = new Peer(chatroomString, {host: 'https://spyke.herokuapp.com/', port: 9000, debug: true});
   peer.on('open', function(peer) {
-    console.log('my peer id is ' + peer);
+	    console.log('my peer id is ' + peer);
   });
+
+//getting an incoming call
+   peer.on('call', function(incoming_call) {
+        console.log("Got a call!");
+        incoming_call.answer(my_stream); // Answer the call with our stream from getUserMedia
+        incoming_call.on('stream', function(remoteStream) {  // we receive a getUserMedia stream from the remote caller
+          // And attach it to a video object
+          var ovideoElement = document.getElementById('othervideo');
+          ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+          ovideoElement.play();
+
+          console.log("this is the other id" + ovideoElement)
+        });
+      });  
+
 
 
 </script>
 </head>
 <body>
 hey there this is chatroom.html
+
+<video id="myvideo" width="320" height="240"></video>
+<video id="othervideo" width="320" height="240"></video>
 </body>
 </html>
 
