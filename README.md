@@ -1,8 +1,9 @@
 Spyke
 =====
 
-Like the other video chat service but IT'S MINE.
+An in-browser video chat service.
 
+Using PeerJS, Express, Socket.io and NodeJs on Heroku.
 
 I'm trying to make my own version of that video chat service. 
 Trying not to use Google products or NSA-helpers anymore. 
