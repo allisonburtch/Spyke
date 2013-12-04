@@ -28,24 +28,26 @@ chatroomString = pathArray[4];
 console.log("this my chatroomString: " + chatroomString);
 
 //get new peer id
-  var peer = new Peer(chatroomString, {host: 'localhost', port: 9000, debug: true});
+  var peer = new Peer({host: 'localhost', port: 9000, debug: true});
   peer.on('open', function(peer) {
 	    console.log('my peer id is ' + peer);
   });
 
 //getting an incoming call
-   peer.on('call', function(incoming_call) {
-        console.log("Got a call!");
-        incoming_call.answer(my_stream); // Answer the call with our stream from getUserMedia
-        incoming_call.on('stream', function(remoteStream) {  // we receive a getUserMedia stream from the remote caller
-          // And attach it to a video object
-          var ovideoElement = document.getElementById('othervideo');
-          ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-          ovideoElement.play();
+peer.on('call', function(incoming_call) {
+    console.log("Got a call!");
+    // Answer the call with our stream from getUserMedia
+    incoming_call.answer(my_stream); 
+    // we receive a getUserMedia stream from the remote caller
+    incoming_call.on('stream', function(remoteStream) {  
+      // And attach it to a video object
+      var ovideoElement = document.getElementById('othervideo');
+      ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+      ovideoElement.play();
 
-          console.log("this is the other id" + ovideoElement)
-        });
-      });  
+      console.log("this is the other id" + ovideoElement)
+    });
+  });  
 
 
 
@@ -53,9 +55,14 @@ console.log("this my chatroomString: " + chatroomString);
 </head>
 <body>
 hey there this is chatroom.html
+<br>
 
 <video id="myvideo" width="320" height="240"></video>
 <button onclick="document.getElementById('myvideo').muted=!document.getElementById('myvideo').muted">Mute/ Unmute</button>
+<video id="othervideo" width="320" height="240"></video>
+<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
+<video id="othervideo" width="320" height="240"></video>
+<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
 <video id="othervideo" width="320" height="240"></video>
 <button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
  

@@ -8,7 +8,7 @@ var express = require('express'),
     app = express(), 
     http = require('http'),
     server = http.createServer(app), 
-    io = require('socket.io').listen(server);
+    io = require('socket.io');
 
 var chatRooms = new Object();
 
@@ -16,7 +16,6 @@ var chatRooms = new Object();
 app.engine('.html', require('ejs').__express);
 app.set('port', process.env.PORT || 3333);
 app.set('view engine', 'html');
-
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -32,14 +31,35 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var sockets = io.listen(server);
+
+//for heroku
+sockets.configure(function() {
+  sockets.set('transports', ['xhr-polling']);
+  sockets.set('polling duration', 10);
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
 app.get('/', function(req, res){
   res.render('index');
 });
+
+app.get('/chatroom/:id', function(req, res){
+	res.render('chatroom');
+	newid = req.params.id;
+	console.log(newid);
+	//push newid to an array
+});
+
+//using sockets to tell people to open connections to eachother
+
+// socket server in this room and has x peer id
+// if people have same room id send eachother peer id 
+//socket.io
+//now associating 
 
 // app.post('/chatroom/:id', function(req, res){
 //     console.log(req.params.id);
@@ -50,39 +70,11 @@ app.get('/', function(req, res){
 //     // res.send("Done!");
 // });
 
-app.get('/chatroom/:id', function(req, res){
-	res.render('chatroom');
-	newid = req.params.id;
-	console.log(newid);
-});
-//
 //start of questionable code
 //
 // app.get('/v\/(.*)/', function (req, res) {
 // 	res.render('index.jade', {name: 'Joe'});
 // });
-
-// app.get('/chatroom', function(req, res){
-//   res.render('chatroom');
-//  //  function randomVidName() {
-//  //    var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
-//  //    var string_length = 20;
-//  //    var randomstring = '';
-//  //        for (var i = 0; i < string_length; i++) {
-//  //            var rnum = Math.floor(Math.random() * chars.length);
-//  //            randomstring += chars.substring(rnum, rnum + 1);
-//  //        }
-//  //        return randomstring;
-// 	// 	}
-// 	// res.send(randomVidName());
-// });
-
-// app.get(/^\/post\/([a-z\d\-]*)/, function (req, res, next) {
-//   // req.params contains the matches set by the RegExp capture groups
-
-//   res.render('chatroom')
-// })
-
 
 
 // app.post('/makeChatroom/:id', function(req, res){
@@ -96,20 +88,19 @@ app.get('/chatroom/:id', function(req, res){
 //  //2. is a peerId for client 1.
 //  // and creat json object that 
 
-//  var newUrl = randomVidName();
-//  // for cooperate-defect package globals
-//   // set some defaults
-//   var newChatRoom = {
-//   	"chatRoomURL": newUrl,
-//   	"peerId": [
-//   	//starts with client 1s Id
-//   	 "peerOne": //this is the peer id for client 1
-//   	 code to generate another random random id 
-//   	 peerTwo, etc
-//   	]
-//   }
+ // var newUrl = randomVidName();
+ // // for cooperate-defect package globals
+ //  // set some defaults
+ //  var newChatRoom = {
+ //  	"chatRoomURL": newUrl,
+ //  	 "peerOne": 
+ //  	 "peerTwo":
+ //  	 "peerThree":
+ //  	 "peerFour":
+ //  	]
+ //  }	
 
-//   chatRooms.push(newChatroom);
+ //  chatRooms.push(newChatroom);
 
 // 	app.redirect("/chatRoom.html");
 //   //https://github.com/karlward/cooperate-defect/blob/master/server/src/server.js
