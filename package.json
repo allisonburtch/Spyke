@@ -10,7 +10,8 @@
     "peer": "~0.2.1",
     "socket.io": "~0.9.16",
     "ws": "~0.4.31",
-    "peerjs": "~0.3.4"
+    "peerjs": "~0.3.4",
+    "ejs": "0.8.5"
   },
   
   "devDependencies": {},
