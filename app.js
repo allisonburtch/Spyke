@@ -29,15 +29,14 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-var socket = io.listen(server);
-console.log("server info " + socket)
+var sockets = io.listen(server);
+console.log("server info " + sockets);
 var chatRooms = new Object();
 
 //for heroku
-socket.configure(function() {
-  socket.set('transports', ['xhr-polling']);
-  socket.set('polling duration', 10);
+sockets.configure(function() {
+  sockets.set('transports', ['xhr-polling']);
+  sockets.set('polling duration', 10);
 });
 
 //creating the http/socket server
@@ -60,7 +59,7 @@ app.get('/chatroom/:id', function(req, res){
 	console.log("your new chatroom id is " + newid);
 	});
 
-socket.on('connection', function (socket) {
+sockets.on('connection', function (socket) {
 	// console.log("your peer id from the other site is " + peer);
 	socket.emit('peer', { hello: 'world' });
 	// socket.on('my other event', function (data) {
@@ -113,7 +112,7 @@ socket.on('connection', function (socket) {
 
 // });
 
-//using socket to tell people to open connections to eachother
+//using sockets to tell people to open connections to eachother
 
 // socket server in this room and has x peer id
 // if people have same room id send eachother peer id 

@@ -1,20 +1,20 @@
-{
+  {
   "name": "spyke",
   "version": "0.0.0",
   "description": "video chat web app",
   "main": "app.js",
-  "dependencies": {
+  "dependencies": 
+  {
     "express": "~3.4.4",
     "jade": "~0.35.0",
     "peer": "~0.2.1",
-    "crypto": "~0.0.3",
     "socket.io": "~0.9.16",
     "ws": "~0.4.31",
-    "peerjs": "~0.3.4",
-    "secure_random": "~0.1.0",
-    "urlsafe-base64": "~0.0.2"
+    "peerjs": "~0.3.4"
   },
+  
   "devDependencies": {},
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,7 @@
     "type": "git",
     "url": "https://github.com/allisonburtch/Spyke.git"
   },
+
   "author": "allison burtch",
   "license": "BSD",
   "readmeFilename": "README.md",

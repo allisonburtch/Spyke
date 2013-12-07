@@ -7,7 +7,7 @@
 <script>
 
 var my_stream = null;
-var socket = io.connect('http://localhost:3333/');
+var socket = io.connect('http://spyke.herokuapp.com:3333/');
 
 //allowing for various browsers
   window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
@@ -35,7 +35,7 @@ var peer = null;
 
 //get peer lobic from server
 //get peer id
-  var peer = new Peer({host: 'localhost', port: 9000, debug: true});
+  var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
   peer.on('open', function(peer) {
 	    console.log('my peer id is ' + peer);
 	    socket.emit("peer: ", peer);
@@ -61,6 +61,7 @@ peer.on('call', function(incoming_call) {
 // Receive other folks peer ids
 socket.on('peer', function (data) {
 	console.log("Got a new peer: " + data);
+    socket.emit('peer');
 
 	// Call them with our stream
 	console.log("Calling peer: " + data);						

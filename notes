@@ -1,0 +1,13 @@
+1. Client requests new chatroom (look at cooperate defect)
+	- Server receives request something like :app.post('/makeChatroom/', function(req, res)
+	- Server will generate a chatroom, which is basically just a randomnumber and it will redirect the person to http:// localhost:3333/chatRoom/randomNumber
+
+2. Client 2 is given localhost:3333/chatRoom/randomNumber by client 1 and goes on it from a browser
+	- So server handles this : app.get('/chatRoom/:id', function(req, res)
+
+
+
+
+
+//for button post/get request handling 
+https://github.com/karlward/cooperate-defect/blob/master/server/src/server.js	
