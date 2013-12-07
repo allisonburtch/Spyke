@@ -30,19 +30,21 @@ if ('development' == app.get('env')) {
 }
 
 
-var sockets = io.listen(server);
+var socket = io.listen(server);
+console.log("server info " + socket)
 var chatRooms = new Object();
 
 //for heroku
-sockets.configure(function() {
-  sockets.set('transports', ['xhr-polling']);
-  sockets.set('polling duration', 10);
+socket.configure(function() {
+  socket.set('transports', ['xhr-polling']);
+  socket.set('polling duration', 10);
 });
 
 //creating the http/socket server
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
 
 //getting the main page with the 'create chatroom' putton
 app.get('/', function(req, res){
@@ -56,42 +58,62 @@ app.get('/chatroom/:id', function(req, res){
 	res.render('chatroom');
 	newid = req.params.id;
 	console.log("your new chatroom id is " + newid);
+	});
 
-	chatRooms = {
-	  	"chatRoomURL": chatRoomURL,
-	  	"peers": 
-	  	[
-	  	 "peerOne": peer1,
-	  	 "peerTwo": peer2,
-	  	 "peerThree": peer3,
-	  	 "peerFour": peer4
-	  	]
-	  }
-
-	for (var i = 0; i<chatRooms.length; i++){
-		chatRooms[i]['chatRoomURL']
-		if(chatRooms[i].chatRoomURL == newid){
-			push.chatRooms;
-		}
-	}
-
-
-	
-	//push newid to an array
-
-
-
-push 
-//i 
-
-	socket.on connections
-	for socket connection, if newid == new
-
-
-
+socket.on('connection', function (socket) {
+	// console.log("your peer id from the other site is " + peer);
+	socket.emit('peer', { hello: 'world' });
+	// socket.on('my other event', function (data) {
+	//   console.log(data);
 });
 
-//using sockets to tell people to open connections to eachother
+	// chatRooms = {
+	//   	"chatRoomURL": chatRoomURL,
+	//   	"peers": 
+	//   	[
+	//   	 "peerOne": peer1,
+	//   	 "peerTwo": peer2,
+	//   	 "peerThree": peer3,
+	//   	 "peerFour": peer4
+	//   	]
+	//   };
+
+	// for (var i = 0; i<chatRooms.length; i++){
+	// 	chatRooms[i]['chatRoomURL']
+	// 	if(chatRooms[i].chatRoomURL == newid){
+	// 		push.chatRooms;
+	// 	}
+	// }
+
+ // 		socket.on('otherevent', function(data) {
+	// 		console.log("Received: 'otherevent' " + data);
+ //                });
+
+ //        socket.on('disconnect', function() {
+ //        	console.log("Client has disconnected");
+ //        });
+	// 
+// });
+// 	//push newid to an array
+//  });
+
+
+// // //separate socket.io from express stuff 
+
+// app....
+// socket..on
+
+// push 
+// //i 
+
+// 	socket.on connections
+// 	for socket connection, if newid == new
+
+
+
+// });
+
+//using socket to tell people to open connections to eachother
 
 // socket server in this room and has x peer id
 // if people have same room id send eachother peer id 
