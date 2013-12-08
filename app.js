@@ -31,11 +31,12 @@ if ('development' == app.get('env')) {
 
 var sockets = io.listen(server);
 console.log("server info " + sockets);
+
 var chatRooms = new Object();
 
 //for heroku
 sockets.configure(function() {
-  sockets.set('transports', ['xhr-polling']);
+  // sockets.set('transports', ['xhr-polling']);
   sockets.set('polling duration', 10);
 });
 
@@ -60,11 +61,28 @@ app.get('/chatroom/:id', function(req, res){
 	});
 
 sockets.on('connection', function (socket) {
-	// console.log("your peer id from the other site is " + peer);
-	socket.emit('peer', { hello: 'world' });
-	// socket.on('my other event', function (data) {
-	//   console.log(data);
+
+    socket.emit('message', { message: 'welcome to the chat' });
+
+    socket.on('event', function(data){});
+
+	socket.on('peer', function (data) {
+	    // io.sockets.emit('sendingPeer', data);
+	    peerID = data;
+	    console.log("this is a new peerid " + peerID);
+	});
+
+  	socket.on('disconnect', function(){});
 });
+
+// sockets.on('connection', function (socket) {
+// 	// console.log("your peer id from the other site is " + peer);
+
+// 	// socket.emit('peer');
+// 		console.log(data);
+// 	// socket.on('my other event', function (data) {
+// 	//   console.log(data);
+// });
 
 	// chatRooms = {
 	//   	"chatRoomURL": chatRoomURL,
@@ -138,15 +156,6 @@ sockets.on('connection', function (socket) {
 // YOU GIVE CLIENT2 AN ID.
 // add a new peer to that chatroom and then do al the peerjs stuff
 
-
-// app.post('/chatroom/:id', function(req, res){
-//     console.log(req.params.id);
-//     // console.log(req.body.description_author);
-//     // console.log(req.body.description_tags);
-//     // console.log(req.body.description_textarea);
-//     // console.log(req.files);
-//     // res.send("Done!");
-// });
 
 
 

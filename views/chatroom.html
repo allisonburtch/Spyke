@@ -4,11 +4,12 @@
 	<title>oh no</title>
 <script type="text/javascript"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
 <script>
 
 var my_stream = null;
-var socket = io.connect('http://spyke.herokuapp.com:3333/');
+// var socket = io.connect('http://spyke.herokuapp.com:3333/');
+var socket = io.connect('http://localhost:3333/');
 
 //allowing for various browsers
   window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
@@ -37,11 +38,17 @@ var peer = null;
 //get peer lobic from server
 //get peer id
   // var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
-  var peer = new Peer({key: '4pt64ta9p1zto6r'});
-  peer.on('open', function(peer) {
+ var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
+
+ peer.on('open', function(peer) {
 	    console.log('my peer id is ' + peer);
-	    socket.emit("peer: ", peer);
+	    socket.emit('peer', peer);
   });
+
+peer.on('error', function(err){
+  alert(err.message);
+  // Return to step 2 if error occurs
+});
 
 //getting an incoming call
 peer.on('call', function(incoming_call) {
@@ -59,20 +66,35 @@ peer.on('call', function(incoming_call) {
     });
   });  
 
+socket.on('connection', function () {
+  console.log("sockets connected");
+
+  if (peer != null) {
+
+  	console.log("peerid not null, sending it(maybe)");
+  	socket.emit(peer);
+  }
+});
 	
+
 // Receive other folks peer ids
 socket.on('peer', function (data) {
 	console.log("Got a new peer: " + data);
-    socket.emit('peer');
+	var sendingPeer = peer;
+	socket.send(sendingPeer);
+
+    socket.emit("here is some data: " + data);
+    socket.emit("here is my peer id??: " + peer);
+
+    console.log("Calling peer: " + data);	
+
+    var call = peer.call(data, my_stream);
 
 	// Call them with our stream
-	console.log("Calling peer: " + data);						
-	var call = peer.call(data, my_stream);
-
 	call.on('stream', function(remoteStream) {
 		console.log("Got remote stream");
 		document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
-	});
+	});					
 });
 
 </script>
