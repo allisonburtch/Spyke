@@ -36,7 +36,7 @@ var chatRooms = new Object();
 
 //for heroku
 sockets.configure(function() {
-  // sockets.set('transports', ['xhr-polling']);
+  sockets.set('transports', ['xhr-polling']);
   sockets.set('polling duration', 10);
 });
 
@@ -70,46 +70,45 @@ sockets.on('connection', function (socket) {
 	    // io.sockets.emit('sendingPeer', data);
 	    peerID = data;
 	    console.log("this is a new peerid " + peerID);
+
 	});
 
   	socket.on('disconnect', function(){});
+
+
+	socket.on('error', function (data) {
+		data = error;
+	    console.log("there's an error " + error);
+	});
 });
 
-// sockets.on('connection', function (socket) {
-// 	// console.log("your peer id from the other site is " + peer);
 
-// 	// socket.emit('peer');
-// 		console.log(data);
-// 	// socket.on('my other event', function (data) {
-// 	//   console.log(data);
-// });
+// 	chatRooms = {
+// 	  	"chatRoomURL": chatRoomURL,
+// 	  	"peers": 
+// 	  	[
+// 	  	 "peerOne": peerID,
+// 	  	 "peerTwo": peer2,
+// 	  	 "peerThree": peer3,
+// 	  	 "peerFour": peer4
+// 	  	]
+// 	  };
 
-	// chatRooms = {
-	//   	"chatRoomURL": chatRoomURL,
-	//   	"peers": 
-	//   	[
-	//   	 "peerOne": peer1,
-	//   	 "peerTwo": peer2,
-	//   	 "peerThree": peer3,
-	//   	 "peerFour": peer4
-	//   	]
-	//   };
+// 	for (var i = 0; i < chatRooms.length; i++){
+// 		chatRooms[i]['chatRoomURL']
+// 		if(chatRooms[i].chatRoomURL == newid){
+// 			push.chatRooms;
+// 		}
+// 	}
 
-	// for (var i = 0; i<chatRooms.length; i++){
-	// 	chatRooms[i]['chatRoomURL']
-	// 	if(chatRooms[i].chatRoomURL == newid){
-	// 		push.chatRooms;
-	// 	}
-	// }
+//  		socket.on('otherevent', function(data) {
+// 			console.log("Received: 'otherevent' " + data);
+//                 });
 
- // 		socket.on('otherevent', function(data) {
-	// 		console.log("Received: 'otherevent' " + data);
- //                });
-
- //        socket.on('disconnect', function() {
- //        	console.log("Client has disconnected");
- //        });
-	// 
+//         socket.on('disconnect', function() {
+//         	console.log("Client has disconnected");
+//         });
+	
 // });
 // 	//push newid to an array
 //  });
