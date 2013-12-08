@@ -35,7 +35,8 @@ var peer = null;
 
 //get peer lobic from server
 //get peer id
-  var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
+  // var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
+  var peer = new Peer({key: '4pt64ta9p1zto6r'});
   peer.on('open', function(peer) {
 	    console.log('my peer id is ' + peer);
 	    socket.emit("peer: ", peer);
