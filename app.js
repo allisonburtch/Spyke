@@ -64,31 +64,31 @@ sockets.on('connection', function (socket) {
 	console.log("We have a new client: " + socket.id);
 
     // socket.emit('message', { message: 'welcome to the chat' });
-
     // socket.on('event', function(data){});
 
 	socket.on('peer', function(data) {
-
 		peerID = data;
-	    console.log("this is a new peerid " + peerID);
-
+	    console.log("this is the first peer id" + peerID);
 		// We can save this in the socket object if we like
 		console.log("Saved: " + socket.peer);
-
 		// We can loop through these if we like
 		for (var i  = 0; i < sockets.length; i++) {
-			console.log("loop: " + i + " " + sockets[i].peer);
+			console.log("loop: " + i + " " + socketse[i].peer);
 		}
-		
 		// Tell everyone my peer_id
 		socket.broadcast.emit('peer_id', data);
 	});
 
+	socket.on('newPeer', function(data){
+		newPeer = data;
+		console.log("this is the second peer id " + newPeer);
+		socket.broadcast.emit('newPeer', data);
+		});
+
   	socket.on('disconnect', function(){});
 
-
 	socket.on('error', function (data) {
-		data = error;
+		error = data;
 	    console.log("there's an error " + error);
 	});
 });
