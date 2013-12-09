@@ -8,15 +8,14 @@
 <script>
 
 var my_stream = null;
-var socket = io.connect('http://spyke.herokuapp.com:3333/');
-// var socket = io.connect('http://localhost:3333/');
+// var socket = io.connect('http://spyke.herokuapp.com:3333/');
+var socket = io.connect('http://localhost:3333/');
 
 //allowing for various browsers
   window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-
-  if (navigator.getUserMedia) {
+  
+    if (navigator.getUserMedia) {
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
           my_stream = stream;
           var videoElement = document.getElementById('myvideo');
@@ -26,6 +25,7 @@ var socket = io.connect('http://spyke.herokuapp.com:3333/');
           console.log('Failed to get local stream' ,err);
     });
   }   
+
 
 //logic to get peer id from url
 pathArray = window.location.href.split('/');
@@ -91,6 +91,24 @@ socket.on('peer', function (data) {
 		document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
 	});					
 });
+
+
+
+
+socket.on('peer_id', function (data) {
+	console.log("Got a new peer: " + data);
+
+	
+	// Call them with our stream, my_stream
+	console.log("Calling peer: " + data);						
+	var call = peer.call(data, my_stream);
+	
+	// After they answer, we'll get a 'stream' event with their stream	
+	call.on('stream', function(remoteStream) {
+		console.log("Got remote stream");
+		document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
+	});
+});		
 
 </script>
 </head>

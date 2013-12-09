@@ -61,16 +61,27 @@ app.get('/chatroom/:id', function(req, res){
 	});
 
 sockets.on('connection', function (socket) {
+	console.log("We have a new client: " + socket.id);
 
-    socket.emit('message', { message: 'welcome to the chat' });
+    // socket.emit('message', { message: 'welcome to the chat' });
 
-    socket.on('event', function(data){});
+    // socket.on('event', function(data){});
 
-	socket.on('peer', function (data) {
-	    // io.sockets.emit('sendingPeer', data);
-	    peerID = data;
+	socket.on('peer', function(data) {
+
+		peerID = data;
 	    console.log("this is a new peerid " + peerID);
 
+		// We can save this in the socket object if we like
+		console.log("Saved: " + socket.peer);
+
+		// We can loop through these if we like
+		for (var i  = 0; i < sockets.length; i++) {
+			console.log("loop: " + i + " " + sockets[i].peer);
+		}
+		
+		// Tell everyone my peer_id
+		socket.broadcast.emit('peer_id', data);
 	});
 
   	socket.on('disconnect', function(){});
