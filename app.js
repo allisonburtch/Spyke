@@ -40,6 +40,7 @@ sockets.configure(function() {
   sockets.set('polling duration', 10);
 });
 
+
 //creating the http/socket server
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -73,8 +74,11 @@ sockets.on('connection', function (socket) {
 		console.log("Saved: " + socket.peer);
 		// We can loop through these if we like
 		for (var i  = 0; i < sockets.length; i++) {
-			console.log("loop: " + i + " " + socketse[i].peer);
+			console.log("loop: " + i + " " + sockets[i].peer);
 		}
+		//send chatroom id,
+		//receive chatroom
+		// and send chatroom id
 		// Tell everyone my peer_id
 		socket.broadcast.emit('peer_id', data);
 	});

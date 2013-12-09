@@ -8,7 +8,7 @@
 <script>
 
 var my_stream = null;
-var socket = io.connect('http://spyke.herokuapp.com:3333/');
+// var socket = io.connect('http://spyke.herokuapp.com:3333/');
 // var socket = io.connect('http://localhost:3333/');
 //logic to get peer id from url
 pathArray = window.location.href.split('/');
@@ -17,80 +17,10 @@ chatroomString = pathArray[4];
 console.log("this my chatroomString: " + chatroomString);
 
 
-var peer = null;			
+var peer_id = null;			
 
 //get peer id
   // var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
-var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
-peer.on('open', function(peer) {
-	    console.log('my peer id is ' + peer);
-	    socket.emit('peer', peer);
-  });
-
-
-//getting an incoming call
-peer.on('call', function(incoming_call) {
-    console.log("Got a call!");
-    // Answer the call with our stream from getUserMedia
-    incoming_call.answer(my_stream); 
-    // we receive a getUserMedia stream from the remote caller
-    incoming_call.on('stream', function(remoteStream) {  
-      // And attach it to a video object
-      var ovideoElement = document.getElementById('othervideo');
-      ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-      ovideoElement.play();
-
-      console.log("this is the other id" + ovideoElement)
-    });
-  });  
-
-peer.on('error', function(err){
-  alert(err.message);
-  socket.emit('error', err);
-  // Return to step 2 if error occurs
-});
-
-//socketio stuff
-socket.on('connection', function () {
-  console.log("sockets connected");
-  if (peer != null) {
-  	console.log("peerid not null, sending it(maybe)");
-  }
-
-  else if (peer = null) {
-  	console.log("peerid is null i think");
-  }
-});
-	
-
-// Receive other folks peer ids
-socket.on('peer', function (data) {
-	console.log("Got a new peer: " + data);
-	var newPeer = data;
-	socket.emit('newPeer', data);
-
-    var call = peer.call(data, my_stream);
-
-	// Call them with our stream
-	call.on('stream', function(remoteStream) {
-		console.log("Got remote stream");
-		document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
-	});					
-});
-
-socket.on('peer_id', function (data) {
-	console.log("Got a new peer: " + data);
-	// Call them with our stream, my_stream
-	console.log("Calling peer: " + data);	
-
-	var call = peer.call(data, my_stream);	
-	// After they answer, we'll get a 'stream' event with their stream	
-	call.on('stream', function(remoteStream) {
-		console.log("Got remote stream");
-		document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
-	});
-});		
-
 
 //allowing for various browsers
   window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
@@ -102,6 +32,71 @@ socket.on('peer_id', function (data) {
           var videoElement = document.getElementById('myvideo');
           videoElement.src = window.URL.createObjectURL(stream) || stream;
           videoElement.play();
+
+	// var socket = io.connect('http://localhost:3333/');
+	var socket = io.connect('http://spyke.herokuapp.com:3333/');
+	var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
+
+	peer.on('open', function(receivedPeer) {
+		peer_id = receivedPeer;
+	    console.log('my peer id is ' + peer_id);
+	    socket.emit('peer', {peer_id: peer_id, chatroom: chatroomString});
+	    //emit chatroom string
+  });
+
+
+	//getting an incoming call
+	peer.on('call', function(incoming_call) {
+	    console.log("Got a call!");
+	    // Answer the call with our stream from getUserMedia
+	    incoming_call.answer(my_stream); 
+	    // we receive a getUserMedia stream from the remote caller
+	    incoming_call.on('stream', function(remoteStream) {  
+	      // And attach it to a video object
+	      var ovideoElement = document.getElementById('othervideo');
+	      ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+	      ovideoElement.play();
+
+	      console.log("this is the other id" + ovideoElement)
+	    });
+	  });  
+
+	peer.on('error', function(err){
+	  alert(err.message);
+	  socket.emit('error', err);
+	  // Return to step 2 if error occurs
+	});
+
+		//socketio stuff
+		socket.on('connection', function () {
+		  console.log("sockets connected");
+		  if (peer_id != null) {
+		  	console.log("peerid not null, sending it(maybe)");
+		  }
+
+		  else if (peer_id = null) {
+		  	console.log("peerid is null i think");
+		  }
+		});
+			
+
+		// Receive other folks peer ids
+		socket.on('peer_id', function (data) {
+			console.log("Got a new peer: " + data);
+			// Call them with our stream, my_stream
+			console.log("Calling peer: " + data);	
+
+//is this peer sending me the same chatroom id
+			if (chatroomString == data.chatroom) {
+			
+				var call = peer.call(data.peer_id, my_stream);	
+				// After they answer, we'll get a 'stream' event with their stream	
+				call.on('stream', function(remoteStream) {
+					console.log("Got remote stream");
+					document.getElementById('othervideo').src = window.URL.createObjectURL(remoteStream) || remoteStream;
+				});
+			}
+		});	
         }, function(err) {
           console.log('Failed to get local stream' ,err);
     });
