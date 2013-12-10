@@ -12,7 +12,7 @@ var express = require('express'),
 
 // all environments
 app.engine('.html', require('ejs').__express);
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 3333);
 app.set('view engine', 'html');
 
 app.use(express.favicon());
