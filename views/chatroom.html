@@ -33,8 +33,8 @@ var peer_id = null;
           videoElement.src = window.URL.createObjectURL(stream) || stream;
           videoElement.play();
 
-	// var socket = io.connect('http://localhost:3333/');
-	var socket = io.connect('http://spyke.herokuapp.com:3333/');
+	var socket = io.connect('http://localhost:3333/');
+	// var socket = io.connect('http://spyke.herokuapp.com:3333/');
 	var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
 
 	peer.on('open', function(receivedPeer) {

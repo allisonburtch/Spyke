@@ -68,10 +68,14 @@ sockets.on('connection', function (socket) {
     // socket.on('event', function(data){});
 
 	socket.on('peer', function(data) {
-		peerID = data;
+		peerID = data.peer_id;
 	    console.log("this is the first peer id" + peerID);
 		// We can save this in the socket object if we like
 		console.log("Saved: " + socket.peer);
+
+		console.log("peer id?" + peerID)
+		console.log("chatroom?" + data.chatroom)
+
 		// We can loop through these if we like
 		for (var i  = 0; i < sockets.length; i++) {
 			console.log("loop: " + i + " " + sockets[i].peer);
