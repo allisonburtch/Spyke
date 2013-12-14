@@ -73,19 +73,17 @@ sockets.on('connection', function (socket) {
 		// We can save this in the socket object if we like
 		console.log("url id:" + newid )
 		console.log("chatroom id? :" + data.chatroom )
-
 		console.log("peer id? " + peerID)
-		// console.log("chatroom?" + data.chatroom)
-
-		// We can loop through these if we like
-		// for (var i  = 0; i < sockets.length; i++) {
-		// 	console.log("loop: " + i + " " + sockets[i].peer);
-		// }
+		
+		for (var i  = 0; i < sockets.length; i++) {
+			console.log("loop: " + i + " " + sockets[i].peer);
+		}
 	
 		if (newid == data.chatroom)
 		{
 		
 			socket.broadcast.emit('peer_id', data);
+			console.log('data: ', data);
 		}
 		//send chatroom id,
 		//receive chatroom
