@@ -14,6 +14,7 @@ var express = require('express'),
 app.engine('.html', require('ejs').__express);
 app.set('port', process.env.PORT || 3333);
 app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -22,7 +23,8 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.bodyParser());
-app.use(express.static(path.join(__dirname, '/views')));
+// app.use(express.static(path.join(__dirname, '/views')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // development only
 if ('development' == app.get('env')) {
