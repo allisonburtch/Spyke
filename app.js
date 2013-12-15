@@ -10,6 +10,7 @@ var app = express(),
     server = http.createServer(app), 
     io = require('socket.io');
 
+
 // all environments
 app.engine('.html', require('ejs').__express);
 app.set('port', process.env.PORT || 5000);
@@ -32,11 +33,11 @@ app.configure('development', function(){
 });
 
 //creating the http/socket server
-server.listen(app.get('port'), function(){
+var stupid = server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var sockets = io.listen(server);
+var sockets = io.listen(stupid);
 console.log("server info " + sockets);
 
 var chatRooms = new Object();
