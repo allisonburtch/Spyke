@@ -1,10 +1,9 @@
-  {
+{
   "name": "spyke",
   "version": "0.0.0",
   "description": "video chat web app",
   "main": "app.js",
-  "dependencies": 
-  {
+  "dependencies": {
     "express": "~3.4.4",
     "jade": "~0.35.0",
     "peer": "~0.2.1",
@@ -13,19 +12,21 @@
     "peerjs": "~0.3.4",
     "ejs": "0.8.5"
   },
-  
   "devDependencies": {},
-
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/allisonburtch/Spyke.git"
   },
-
   "author": "allison burtch",
   "license": "BSD",
   "readmeFilename": "README.md",
-  "gitHead": "55534107b85eb70493e19bca259b168d975f8392"
+  "gitHead": "55534107b85eb70493e19bca259b168d975f8392",
+  "subdomain": "spyke",
+  "engines": {
+    "node": "0.10.x"
+  }
 }
