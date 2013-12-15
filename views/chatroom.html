@@ -3,7 +3,7 @@
 <head>
 	<title>SPYKE</title>
 <script type="text/javascript"></script>
-<script src="spyke.herokuapp.com:5500/socket.io/socket.io.js"></script>
+<script src="spyke.herokuapp.com/socket.io/socket.io.js"></script>
 
  <script src="/socket.io/socket.io.js"></script>
 
@@ -30,8 +30,8 @@ navigator.getUserMedia({video: true, audio: true}, function(stream) {
 
 
     // var socket = io.connect('http://localhost:5500/');
-    // var socket = io.connect('http://spyke.herokuapp.com:5500/');
-    var socket = io.connect('http://spyke.nodejitsu.com:5500/');
+    var socket = io.connect('http://spyke.herokuapp.com:5500/');
+    // var socket = io.connect('http://spyke.nodejitsu.com:5500/');
 
     // var peer = new Peer({host: 'localhost', port: 9000, debug: true});
     var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
