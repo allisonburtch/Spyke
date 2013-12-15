@@ -23,6 +23,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname, '/views')));
+//everything sucks
 
 // development only
 if ('development' == app.get('env')) {
