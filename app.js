@@ -8,7 +8,7 @@ var url = require('url');
 var app = express(), 
     http = require('http'),
     server = http.createServer(app), 
-    io = require('socket.io');
+    io = require('socket.io').listen(server);
 
 // all environments
 app.engine('.html', require('ejs').__express);
