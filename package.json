@@ -1,6 +1,6 @@
 {
   "name": "spyke",
-  "version": "0.0.0",
+  "version": "0.0.0-3",
   "description": "video chat web app",
   "main": "app.js",
   "dependencies": {
