@@ -19,33 +19,36 @@ body {
 
 a {
   color: #00B7FF;
+   font-size:;
+   padding-right:30px;
 }
 
-ul {
-	list-style-type:none !important;
-}
 
-li{
-	display:inline-block;
-}
-li.chatroom{
-	display:inline-block;
-	border-size:2px;
-	border-color:grey;
-	border-style:solid;
-	list-style-type:none !important;
+a#header-links{
+	/*font-size:32px;*/
 }
 
 #othervideo{
 	display:inline-block;
 }
+
 button{
 	display:block;
+	width:300px;
 }
 
-#logo{
-	position:relative;
-	float:left;
+ul.nav {
+	font-family: 'Nunito', sans-serif;
+	font-size: 25px;
+	text-align: center;
+}
+
+body {
+	font-family: 'Nunito', sans-serif;
+	
+}
+.row-fluid {
+font-size: 85px;
 }
 
 #header{
@@ -71,8 +74,11 @@ button{
 
 #chatroom{
 	text-align:center;
-	width:100%;
+	/*width:100%;*/
 	/*background-color:gold;*/
+}
+button #chatroom{
+	width:300px;
 }
 .sm-video{
 	background-color:white;
@@ -104,4 +110,11 @@ button{
 .mute-button{
 	position:absolute;
 	top:-30;
+}
+
+#myvideo{
+	background-color:white;
+	position:relative;
+	width:320px;
+	height:240px;
 }
