@@ -12,7 +12,7 @@ var app = express(),
 
 // all environments
 app.engine('.html', require('ejs').__express);
-app.set('port', 5500);
+app.set('port', process.env.PORT || 5500);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
