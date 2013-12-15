@@ -1,147 +1,147 @@
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<title>oh no</title>
-	<script type="text/javascript"></script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>oh no</title>
+<script type="text/javascript"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
 
-	<script>
+<script>
 
-	var my_stream = null;
+var my_stream = null;
+// var socket = io.connect('http://spyke.herokuapp.com:3333/');
+// var sockets = io.connect('http://localhost:3333/');
+//logic to get peer id from url
+pathArray = window.location.href.split('/');
+chatroomString = pathArray[4];
+
+console.log("this my chatroomString: " + chatroomString);
+
+var peer_id = null;			
+
+//get peer id
+// var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
+//everything sucks
+//allowing for various browsers
+  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia; 
+
+    if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true, audio: true}, function(stream) {
+          my_stream = stream;
+          var videoElement = document.getElementById('myvideo');
+          videoElement.src = window.URL.createObjectURL(stream) || stream;
+          videoElement.play();
+
+	var socket = io.connect('http://localhost:3333/');
 	// var socket = io.connect('http://spyke.herokuapp.com:3333/');
-	// var sockets = io.connect('http://localhost:3333/');
-	//logic to get peer id from url
-	pathArray = window.location.href.split('/');
-	chatroomString = pathArray[4];
+	// var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
+	var peer = new Peer({host: 'localhost', port: 9000, debug: true});
 
-	console.log("this my chatroomString: " + chatroomString);
+	peer.on('open', function(peer) {
+		peer_id = peer;
+	    console.log('my peer id is ' + peer_id);
+	    socket.emit('peer', {peer_id: peer_id, chatroom: chatroomString});
+	    //emit chatroom string
+	   	console.log('peer id and chatroom string: ', {peer_id: peer_id, chatroom: chatroomString});
 
-	var peer_id = null;			
+  });
 
-	//get peer id
-	// var peer = new Peer({host: 'http://spyke.herokuapp.com', port: 9000, debug: true});
-	//everything sucks
-	//allowing for various browsers
-	  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-	  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia; 
+	//getting an incoming call
+	 
+		peer.on('error', function(err){
+		  alert(err.message);
+		  socket.emit('error', err);
+		  // Return to step 2 if error occurs
+		});
 
-	    if (navigator.getUserMedia) {
-	    navigator.getUserMedia({video: true, audio: true}, function(stream) {
-	          my_stream = stream;
-	          var videoElement = document.getElementById('myvideo');
-	          videoElement.src = window.URL.createObjectURL(stream) || stream;
-	          videoElement.play();
+		//socketio stuff
+	socket.on('connection', function () {
+		  console.log("sockets connected");
+		  if (peer_id != null) {
+		  	console.log("peerid not null, sending it(maybe)");
+		  }
 
-		var socket = io.connect('http://localhost:3333/');
-		// var socket = io.connect('http://spyke.herokuapp.com:3333/');
-		// var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
-		var peer = new Peer({host: 'localhost', port: 9000, debug: true});
+		  else if (peer_id = null) {
+		  	console.log("peerid is null i think");
+		  }
 
-		peer.on('open', function(peer) {
-			peer_id = peer;
-		    console.log('my peer id is ' + peer_id);
-		    socket.emit('peer', {peer_id: peer_id, chatroom: chatroomString});
-		    //emit chatroom string
-		   	console.log('peer id and chatroom string: ', {peer_id: peer_id, chatroom: chatroomString});
+	  // Receive other folks peer ids
+		socket.on('peer_id', function (data) {
+			console.log("Got a new peer: " + data);
+			// Call them with our stream, my_stream
+			console.log("Calling peer: " + data);	
 
-	  });
+		//is this peer sending me the same chatroom id
+			if (chatroomString == data.chatroom) {
+		
+			var call = peer.call(data.peer_id, my_stream);	
+			console.log("Got a call!");
+			call.answer(my_stream); 
+				// After they answer, we'll get a 'stream' event with their stream	
+		call.on('stream', function(remoteStream) {  
+			console.log("Got remote stream");
+		  // And attach it to a video object
+			      var ovideoElement = document.getElementById('othervideo');
+			      ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+			      ovideoElement.play();
 
-		//getting an incoming call
-		 
-			peer.on('error', function(err){
-			  alert(err.message);
-			  socket.emit('error', err);
-			  // Return to step 2 if error occurs
-			});
-
-			//socketio stuff
-		socket.on('connection', function () {
-			  console.log("sockets connected");
-			  if (peer_id != null) {
-			  	console.log("peerid not null, sending it(maybe)");
-			  }
-
-			  else if (peer_id = null) {
-			  	console.log("peerid is null i think");
-			  }
-
-		  // Receive other folks peer ids
-			socket.on('peer_id', function (data) {
-				console.log("Got a new peer: " + data);
-				// Call them with our stream, my_stream
-				console.log("Calling peer: " + data);	
-
-			//is this peer sending me the same chatroom id
-				if (chatroomString == data.chatroom) {
+			      console.log("this is the other id" + ovideoElement)
+					}); 	
+				}
+			});	
+		});
 			
-				var call = peer.call(data.peer_id, my_stream);	
-				console.log("Got a call!");
-				call.answer(my_stream); 
-					// After they answer, we'll get a 'stream' event with their stream	
-			call.on('stream', function(remoteStream) {  
-				console.log("Got remote stream");
-			  // And attach it to a video object
-				      var ovideoElement = document.getElementById('othervideo');
-				      ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-				      ovideoElement.play();
+        }, function(err) {
+          console.log('Failed to get local stream' , err);
+    });
+};
 
-				      console.log("this is the other id" + ovideoElement)
-						}); 	
-					}
-				});	
-			});
-				
-	        }, function(err) {
-	          console.log('Failed to get local stream' , err);
-	    });
-	};
-    
 
-	</script>
+</script>
 
-	<link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+<link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
 
-	</head>
-	<body>
-		<div id="header">
-			<div id="logo"><img src="../images/spyke.png"></div>
-			<div id="header-links">
-				<ul>
-					<li><a href="/annoucements">Annoucements</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/other">Other</a></li>
-				</ul>
-			</div>
-			
-		</div>
-
-			
-		<div id="chatroom">
+</head>
+<body>
+	<div id="header">
+		<div id="logo"><img src="../images/spyke.png"></div>
+		<div id="header-links">
 			<ul>
-				<li class="chat-member">
-					<div class="">
-						<video id="othervideo" class="lg-video"></video>
-						<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
-					</div>
-				</li>
+				<li><a href="/annoucements">Annoucements</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/other">Other</a></li>
 			</ul>
 		</div>
-
-			<div id="self">
 		
-					<div class="self">
-						<video id="myvideo" class="sm-video"></video>
-						<button class="mute-button" onclick="document.getElementById('myvideo').muted=!document.getElementById('myvideo').muted">Mute/ Unmute</button>
-				 	<div>
+	</div>
 
-			</div>
+		
+	<div id="chatroom">
+		<ul>
+			<li class="chat-member">
+				<div class="">
+					<video id="othervideo" class="lg-video"></video>
+					<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
+				</div>
+			</li>
+		</ul>
+	</div>
 
+		<div id="self">
+	
+				<div class="self">
+					<video id="myvideo" class="sm-video"></video>
+					<button class="mute-button" onclick="document.getElementById('myvideo').muted=!document.getElementById('myvideo').muted">Mute/ Unmute</button>
+			 	<div>
 
 		</div>
-		 
 
 
-	</body>
-	</html>
+	</div>
+	 
+
+
+</body>
+</html>
 

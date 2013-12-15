@@ -1,52 +1,52 @@
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <title>test test</title>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test test</title>
+  <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
 
-  </head>
-  <body>
-    <div id="header">
-      <div id="logo"><img src="../images/spyke.png"></div>
-      <div id="header-links">
-        <ul>
-          <li><a href="/annoucements">Annoucements</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/other">Other</a></li>
-        </ul>
-      </div>
-      
+</head>
+<body>
+  <div id="header">
+    <div id="logo"><img src="../images/spyke.png"></div>
+    <div id="header-links">
+      <ul>
+        <li><a href="/annoucements">Annoucements</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/other">Other</a></li>
+      </ul>
     </div>
+    
+  </div>
 
 
-    <h2> click the link to start a chatroom</h2>
-     <h2>send the link to a friend for them to join</h2>
-                
-      <button id = "chatroom" onclick= "goToRandomVid();" type="submit">Make video chat room</button>
-      <script type="text/javascript"></script>
-   <script>
-  function randomVidName() {
-      var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
-      var string_length = 20;
-      var randomstring = '';
-      for (var i = 0; i < string_length; i++) 
-      {
-          var rnum = Math.floor(Math.random() * chars.length);
-          randomstring += chars.substring(rnum, rnum + 1);
-      }
-      return randomstring;
-    }         
-     
-  function goToRandomVid() {
-    window.location = "/chatroom/" + randomVidName();
-  }
-
-   </script>
+  <h2> click the link to start a chatroom</h2>
+   <h2>send the link to a friend for them to join</h2>
+              
+    <button id = "chatroom" onclick= "goToRandomVid();" type="submit">Make video chat room</button>
+    <script type="text/javascript"></script>
+ <script>
+function randomVidName() {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
+    var string_length = 20;
+    var randomstring = '';
+    for (var i = 0; i < string_length; i++) 
+    {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
+    }
+    return randomstring;
+  }         
    
-   </body>
-  </html>
+function goToRandomVid() {
+  window.location = "/chatroom/" + randomVidName();
+}
+
+ </script>
+ 
+ </body>
+</html>
 
 
-   
-        
+ 
+      
