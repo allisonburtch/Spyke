@@ -1,119 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>spyyke</title>
-  <link rel="stylesheet" type="text/css" href="/views/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
-    <script src="/node_modules/socket.io/socket.io.js"></script>
-      <script>
-    // No API key required when not using cloud server
-    var peer = new Peer('v', {host: 'localhost', port: 9000});
-  </script>
-    <script type="text/javascript">
-      
-      var init = function() {
-
-        /* Get User Media */
-        var my_stream = null;
-        
-        window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        if (navigator.getUserMedia) {
-          navigator.getUserMedia({video: true}, function(stream) {
-                my_stream = stream;
-                var audioElement = document.getElementById('myaudio');
-                audioElement.src = window.URL.createObjectURL(stream) || stream;
-                audioElement.play();
-                console.log("my_stream is created");
-
-        /* My WebRTC peer id */
-        var peer_id = null; 
-         var myName = null;
-          var user_info_div;    
-      
-        /* Socket Server - Socket.io */
-        var socket = io.connect('localhost:7070/', {'sync disconnect on unload': true });
-
-        socket.on('connect', function() {
-          console.log("Connected");
-        
-        });
-
-
-        // Receive other folks peer ids, broadcast
-
-        socket.on('peer_id', function (data) {
-          console.log("Got a new peer: " + data);
-        
-          // Call them with our stream
-          console.log("Calling peer: " + data);           
-          var call = peer.call(data, my_stream);
-
-          call.on('stream', function(remoteStream) {
-            console.log("Got remote stream");
-            //if its my turn then broadcast to pumpkin/everyone else
-            var oaudioElement = document.createElement('audio');
-            oaudioElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-            document.body.appendChild(oaudioElement);
-            oaudioElement.controls=true;
-            oaudioElement.play();
-            console.log("If my turn, broadcast");
-          });
-        });
-        //end of data function
-
-      
-        //var peer = new Peer({key: 'sr1apomrk7kqpvi'});
-        var peer = new Peer({
-          host: 'localhost',
-          port: 9000
-        });
-
-        // Get an ID from the PeerJS server   
-        peer.on('open', function(id) {
-          console.log('My peer ID is: ' + id);
-          peer_id = id;
-        
-          // If our socket is connected, send out our peer id here
-          //if (socket.connected) {
-          console.log("sending out our peer id");
-          socket.emit("peer_id", peer_id );
-          //}
-        });   
-    
-        
-        peer.on('call', function(incoming_call) {
-          console.log("Got a call!");
-          incoming_call.answer(my_stream); // Answer the call with an A/V stream.
-          incoming_call.on('stream', function(remoteStream) {
-            //this is the part that generates another audio tag
-            var oaudioElement = document.createElement('audio');
-            oaudioElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-            document.body.appendChild(oaudioElement);
-            oaudioElement.controls=true;
-            oaudioElement.play();
-            console.log("my_stream received call from another stream");
-          });
-        }); 
-
-
-          }, function(err) {
-                console.log('Failed to get local stream' ,err);
-          });
-        }
-
-    
-
-      };
-    
-    </script>
-  </head>
-  <body onload="init()">
-    <audio id="myaudio" controls muted></audio>
-    everything sucks
-    <div id="user_info"></div>
-  <div id="workers"></div>
-  </body>
+  <title>Dumb Store</title>
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>About Spyke</h1>
+    <p>What if all of our communication didn't have to be routed through big corporations?</p>
+    <p>Spyke uses WebRTC and peer-to-peer communcation, meaning that your conversation is in the browser(client) and doesn't have to go through a server.
+    <p>Check out Documentation for more information. Spyke uses all open-source technologies.</p>
+    <p>Let me know if you have any questions! Follow me on <a href="https://twitter.com/irl">twitter</a>.</p>
+    <p>For press inquiries, please <a href="allison@allisonburtch.net">email</a> 
+  
+    <h3>Thanks</h3>
+      <p><a href="http://www.walking-productions.com/‎">Shawn Van Every</a> and the Live Web class at <a href="http://itp.nyu.edu/itp/">ITP</a>.</p>
+      <p>Mac Howell and JayRZ for design help</p>
+      <p><a href="http://peerjs.com/">PeerJs</a> for making good shit.</p>
+  </div>
+</body>
 </html>
-
-
