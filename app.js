@@ -12,7 +12,7 @@ var express = require('express'),
 
 // all environments
 app.engine('.html', require('ejs').__express);
-app.set('port', process.env.PORT || 3333);
+app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
@@ -66,7 +66,6 @@ app.get('/chatroom/:id', function(req, res){
 
 sockets.on('connection', function (socket) {
 	console.log("We have a new client: " + socket.id);
-
     // socket.emit('message', { message: 'welcome to the chat' });
     // socket.on('event', function(data){});
 
@@ -85,6 +84,17 @@ sockets.on('connection', function (socket) {
 			console.log("loop: " + i + " " + sockets[i].peer);
 		}
 	
+		// chatRooms = {
+	 //  	"chatRoomURL": chatRoomURL,
+		//   	"peerID" : data.peer_id,
+		//   };
+
+		// for (var i = 0; i < chatRooms.length; i++){
+		// 	chatRooms[i]['chatRoomURL']
+		// 	if(chatRooms[i].chatRoomURL == newid){
+		// 		push.chatRooms;
+		// 	}
+		// }
 		if (newid == data.chatroom)
 		{
 		
@@ -113,17 +123,6 @@ sockets.on('connection', function (socket) {
 });
 
 
-	chatRooms = {
-	  	"chatRoomURL": chatRoomURL,
-	  	"peerID" : data.peer_id,
-	  };
-
-	for (var i = 0; i < chatRooms.length; i++){
-		chatRooms[i]['chatRoomURL']
-		if(chatRooms[i].chatRoomURL == newid){
-			push.chatRooms;
-		}
-	}
 
 //  		socket.on('otherevent', function(data) {
 // 			console.log("Received: 'otherevent' " + data);
