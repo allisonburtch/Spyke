@@ -10,7 +10,6 @@ var app = express(),
     server = http.createServer(app), 
     io = require('socket.io');
 
-
 // all environments
 app.engine('.html', require('ejs').__express);
 app.set('port', process.env.PORT || 5000);
@@ -28,19 +27,18 @@ app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
 
+console.log(process.env.port);
+
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
 //creating the http/socket server
-var stupid = server.listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var sockets = io.listen(stupid);
-console.log("server info " + sockets);
-
-var chatRooms = new Object();
+var sockets = io.listen(server);
 
 app.get('/', function(req, res){
   res.render('index');
@@ -108,7 +106,7 @@ sockets.on('connection', function (socket) {
 // });
 
 //getting the main page with the 'create chatroom' putton
-	
+	// var chatRooms = new Object();
 	//i think i might need to push to an array but who knows
 		// chatRooms = {
 	 //  	"chatRoomURL": chatRoomURL,

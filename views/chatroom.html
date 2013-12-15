@@ -4,8 +4,9 @@
 	<title>SPYKE</title>
 <script type="text/javascript"></script>
 <script src="http://spyke.nodejitsu.com:5000/socket.io/socket.io.js"></script>
-<!-- <script src="/socket.io/socket.io.js"></script>
- -->
+
+ <script src="/socket.io/socket.io.js"></script>
+
 <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
 
 <script>
@@ -29,11 +30,11 @@ navigator.getUserMedia({video: true, audio: true}, function(stream) {
 
 
     // var socket = io.connect('http://localhost:5000/');
-    // var socket = io.connect('http://spyke.herokuapp.com:5000/');
-    var socket = io.connect('http://spyke.nodejitsu.com:5000/');
+    var socket = io.connect('http://spyke.herokuapp.com:5000/');
+    // var socket = io.connect('http://spyke.nodejitsu.com:5000/');
 
-    var peer = new Peer({host: 'localhost', port: 9000, debug: true});
-    // var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
+    // var peer = new Peer({host: 'localhost', port: 9000, debug: true});
+    var peer = new Peer({key: '4pt64ta9p1zto6r', debug: true});
 
     peer.on('open', function(peer) {
     	peer_id = peer;
