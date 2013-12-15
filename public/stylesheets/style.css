@@ -1,8 +1,107 @@
+html{
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background: #f9f9f9; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f9f9f9 0%, #ffffff 70%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(70%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f9f9f9 0%,#ffffff 70%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f9f9f9 0%,#ffffff 70%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f9f9f9 0%,#ffffff 70%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f9f9f9 0%,#ffffff 70%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
 }
 
 a {
   color: #00B7FF;
+}
+
+ul {
+	list-style-type:none !important;
+}
+
+li{
+	display:inline-block;
+}
+li.chatroom{
+	display:inline-block;
+	border-size:2px;
+	border-color:grey;
+	border-style:solid;
+	list-style-type:none !important;
+}
+
+#othervideo{
+	display:inline-block;
+}
+button{
+	display:block;
+}
+
+#logo{
+	position:relative;
+	float:left;
+}
+
+#header{
+	/*text-align:right;*/
+	position:relative;
+	display:inline-block;
+	height:88px;
+	width:100%;
+	/*background-color:pink;*/
+}
+#header-links{
+	font-size:16px;
+	font-weight:300;
+	/*font-color*/
+	float:right;
+	position:relative;
+	display:inline-block;
+	text-align: right;
+}
+#main{
+	/*background-color:grey;*/
+}
+
+#chatroom{
+	text-align:center;
+	width:100%;
+	/*background-color:gold;*/
+}
+.sm-video{
+	background-color:white;
+	position:relative;
+	width:320px;
+	height:240px;
+}
+
+.med-video{
+	background-color:white;
+	position:relative;
+	width:640px;
+	height:480px;
+}
+
+.lg-video{
+	background-color:white;
+	position:relative;
+	width:1080px;
+	height:600px;
+}
+
+.self{
+	position:absolute;
+	bottom:40px;
+	right:10px;
+	z-index:90;
+}
+.mute-button{
+	position:absolute;
+	top:-30;
 }
