@@ -5,6 +5,7 @@
 <script type="text/javascript"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
 <script>
 
 var my_stream = null;
@@ -98,22 +99,55 @@ var peer_id = null;
     
 
 </script>
+
+<link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+
 </head>
 <body>
+	<div id="header">
+		<div id="logo"><img src="../images/spyke.png"></div>
+		<div id="header-links">
+			<ul>
+				<li><a href="/annoucements">Annoucements</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/other">Other</a></li>
+			</ul>
+		</div>
+		
+	</div>
 
-hey there this is chatroom.html
-NOW CHAT 
-<br>
+		
+	<div id="chatroom">
+		<ul>
+			<li class="chat-member">
+				<div class="">
+					<video id="othervideo" class="lg-video"></video>
+					<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
+				</div>
+			</li>
+		</ul>
+	</div>
 
-<video id="myvideo" width="320" height="240"></video>
-<button onclick="document.getElementById('myvideo').muted=!document.getElementById('myvideo').muted">Mute/ Unmute</button>
-<video id="othervideo" width="320" height="240"></video>
-<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
-<video id="othervideo" width="320" height="240"></video>
-<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
-<video id="othervideo" width="320" height="240"></video>
-<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
- 
+		<div id="self">
+	
+				<div class="self">
+					<video id="myvideo" class="sm-video"></video>
+					<button class="mute-button" onclick="document.getElementById('myvideo').muted=!document.getElementById('myvideo').muted">Mute/ Unmute</button>
+			 	<div>
+
+		</div>
+
+
+			<!-- li><video id="othervideo" width="320" height="240"></video></li>
+
+				<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button>
+
+			<li><video id="othervideo" width="320" height="240"></video></li>
+
+				<button onclick="document.getElementById('myvideo').muted=!document.getElementById('othervideo').muted">Mute/ Unmute</button> -->
+
+	</div>
+	 
 
 
 </body>
