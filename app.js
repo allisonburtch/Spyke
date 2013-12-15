@@ -9,6 +9,7 @@ var app = express(),
     http = require('http'),
     server = http.createServer(app), 
     io = require('socket.io').listen(server);
+var sockets = io;
 
 // all environments
 app.engine('.html', require('ejs').__express);
@@ -38,7 +39,11 @@ server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var sockets = io.listen(server);
+
+sockets.configure(function() {
+  sockets.set('transports', ['xhr-polling']);
+  sockets.set('polling duration', 10);
+});
 
 app.get('/', function(req, res){
   res.render('index');
@@ -100,10 +105,7 @@ sockets.on('connection', function (socket) {
 
 
 //for heroku
-// sockets.configure(function() {
-//   sockets.set('transports', ['xhr-polling']);
-//   sockets.set('polling duration', 10);
-// });
+
 
 //getting the main page with the 'create chatroom' putton
 	// var chatRooms = new Object();

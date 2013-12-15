@@ -29,8 +29,8 @@ navigator.getUserMedia({video: true, audio: true}, function(stream) {
     videoElement.play();
 
 
-    // var socket = io.connect('http://localhost:5500/');
-    var socket = io.connect('http://spyke.herokuapp.com:5500/');
+    // var socket = io.connect('http://localhost/');
+    var socket = io.connect('http://spyke.herokuapp.com/');
     // var socket = io.connect('http://spyke.nodejitsu.com:5500/');
 
     // var peer = new Peer({host: 'localhost', port: 9000, debug: true});
