@@ -1,41 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>test test</title>
-  <meta charset="utf-8">
-</head>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>test test</title>
+    <meta charset="utf-8">
+  </head>
 
-<body>
-   <img src="images/spyke.png" alt="logo">
+  <body>
+     <img src="images/spyke.png" alt="logo">
 
 
-  <h2> click the link to start a chatroom</h2>
-   <h2>send the link to a friend for them to join</h2>
-              
-    <button id = "chatroom" onclick= "goToRandomVid();" type="submit">Make video chat room</button>
-    <script type="text/javascript"></script>
- <script>
-function randomVidName() {
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
-    var string_length = 20;
-    var randomstring = '';
-    for (var i = 0; i < string_length; i++) 
-    {
-        var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substring(rnum, rnum + 1);
-    }
-    return randomstring;
-  }         
+    <h2> click the link to start a chatroom</h2>
+     <h2>send the link to a friend for them to join</h2>
+                
+      <button id = "chatroom" onclick= "goToRandomVid();" type="submit">Make video chat room</button>
+      <script type="text/javascript"></script>
+   <script>
+  function randomVidName() {
+      var chars = "0123456789ABCDEFGHIJKLMNOPQRS-_=TUVWXYZabcdefghijklmnopqrstuvwxyz";
+      var string_length = 20;
+      var randomstring = '';
+      for (var i = 0; i < string_length; i++) 
+      {
+          var rnum = Math.floor(Math.random() * chars.length);
+          randomstring += chars.substring(rnum, rnum + 1);
+      }
+      return randomstring;
+    }         
+     
+  function goToRandomVid() {
+    window.location = "/chatroom/" + randomVidName();
+  }
+
+   </script>
+   </body>
+  </html>
+
+
    
-function goToRandomVid() {
-  window.location = "/chatroom/" + randomVidName();
-}
-
- </script>
- </body>
-</html>
-<!-- //everything sucks -->
-
-
- 
-      
+        
