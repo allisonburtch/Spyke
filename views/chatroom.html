@@ -3,12 +3,8 @@
 <head>
 	<title>SPYKE</title>
 <script type="text/javascript"></script>
-<script src="spyke.herokuapp.com/socket.io/socket.io.js"></script>
-
- <script src="/socket.io/socket.io.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
 <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
-
 <script>
 
 var my_stream = null;
@@ -74,7 +70,7 @@ navigator.getUserMedia({video: true, audio: true}, function(stream) {
 		newPeer = data.peer_id;
 		chatroomID = data.chatroom;
 
-	if chatroomString == chatroomID {
+	if (chatroomString == chatroomID) {
 
 		var call = peer.call(data.peer_id, my_stream); 
 		call.on('stream', function(remoteStream) {
@@ -93,10 +89,8 @@ navigator.getUserMedia({video: true, audio: true}, function(stream) {
 </script>
 
  <title>Spyke</title>
- <link rel="stylesheet" type="text/css" href="/style.css">
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 
 </head>

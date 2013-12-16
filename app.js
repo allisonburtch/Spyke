@@ -83,10 +83,10 @@ sockets.on('connection', function (socket) {
 		for (var i  = 0; i < sockets.length; i++) {
 			console.log("loop: " + i + " " + sockets[i].peer);
 		}
-
+		//this is a hacky way to connect peers in the browser
+		//TODO: push to an array/json file?
 		if (newid == data.chatroom)
 		{
-		
 			socket.broadcast.emit('peer_id', data);
 			console.log('data: ', data);
 		}
