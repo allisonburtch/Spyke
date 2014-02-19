@@ -1,10 +1,15 @@
 Spyke
 =====
 
-An in-browser video chat service.
+An in-browser video chat service using PeerJS and WebRTC. I got about 70% of the way into this project and then found a handful of companies doing the same thing. I also don't think that browser connections are where they need to be to make this work flawlessly. 
 
-Using PeerJS, Express, Socket.io and NodeJs on Heroku.
+Obviously, the ultimate goal is to not use little NSA-helper services (*cough mcrsft/gogl). 
 
-I'm trying to make my own version of that video chat service. 
-Trying not to use Google products or NSA-helpers anymore. 
-Hopefully this will work with Heroku's new WebRTC capabilities.
+Anyways, I'm using PeerJS, Express, Socket.io and NodeJs on Heroku.
+
+Getting it to run with Heroku's websockets was shitty.
+
+Feel free to check out the issues and fork it if you want to.
+
+xoxo
+
