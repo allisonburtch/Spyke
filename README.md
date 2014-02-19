@@ -1,7 +1,7 @@
 Spyke
 =====
 
-An in-browser video chat service using PeerJS and WebRTC. I got about 70% of the way into this project and then found a handful of companies doing the same thing. I also don't think that browser connections are where they need to be to make this work flawlessly. 
+An in-browser video chat service using PeerJS and WebRTC. I got about 70% of the way into this project and then found a handful of companies doing the same thing but better. I also don't think that browser connections are where they need to be to make this work flawlessly. 
 
 Obviously, the ultimate goal is to not use little NSA-helper services (*cough mcrsft/gogl). 
 
